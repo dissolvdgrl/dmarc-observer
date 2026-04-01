@@ -4,18 +4,17 @@ import (
 	"fmt"
 	"os"
 	"log"
+	"dmarc-observer/parser"
 )
 
 func main() {
 	fmt.Println("Dmarc Observer build in progress...")
-	files, err := os.ReadDir("xml-reports")
-
+	file, err := os.Open("xml-reports/report.xml")
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	for _, file := range files {
-		fmt.Println(file.Name())
-	}
+	fmt.Println(parser.ParseReport(file))
+
 }
