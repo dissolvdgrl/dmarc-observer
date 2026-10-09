@@ -76,6 +76,9 @@ type Feedback struct {
 	Record Record `xml:"record"`
 }
 
+
+var separator string = "-------------------------------------------------------------\n"
+
 func ParseReport(r io.Reader) (*Feedback, error) {
 	var report Feedback
 	decoder := xml.NewDecoder(r)
@@ -88,10 +91,29 @@ func ParseReport(r io.Reader) (*Feedback, error) {
 	return &report, nil
 }
 
-func PrintReport(report *Feedback) (string) {
+func PrintReportSummary (reports []Feedback) string {
+	var sb strings.Builder
+	header := "Reports Summary - Press the number on the left to view details \n"
+
+	sb.WriteString(header)
+	sb.WriteString(separator)
+
+	for index, report := range reports {
+		sb.WriteString(fmt.Sprintf(
+			"%d \t %s - %s - %s\n",
+			index,
+			report.ReportMetaData.OrgName, 
+			report.PolicyPublished.Domain,
+			report.PolicyPublished.P,
+		))
+	}
+
+	return sb.String()
+}
+
+func PrintFullReport(report *Feedback) (string) {
 	var sb strings.Builder
 	var header = "Name \t \t \t Value \n"
-	var separator = "--------------------------------------\n"
 	
 	sb.WriteString(header)
 	sb.WriteString(separator)
