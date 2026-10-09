@@ -4,7 +4,9 @@ package parser
 
 import (
 	"encoding/xml"
+	"fmt"
 	"io"
+	"strings"
 )
 
 type DateRange struct {
@@ -84,4 +86,22 @@ func ParseReport(r io.Reader) (*Feedback, error) {
 	}
 
 	return &report, nil
+}
+
+func PrintReport(report *Feedback) (string) {
+	var sb strings.Builder
+	var header = "Name \t \t \t Value \n"
+	var separator = "--------------------------------------\n"
+	
+	sb.WriteString(header)
+	sb.WriteString(separator)
+	sb.WriteString(fmt.Sprintf("Org Name \t \t %s\n", report.ReportMetaData.OrgName))
+	sb.WriteString(fmt.Sprintf("Domain \t \t \t %s\n", report.PolicyPublished.Domain))
+	sb.WriteString(fmt.Sprintf("P \t \t \t %s\n", report.PolicyPublished.P))
+	sb.WriteString(fmt.Sprintf("DKIM \t \t \t %s\n", report.Record.Row.PolicyEvaluated.Dkim))
+	sb.WriteString(fmt.Sprintf("SPF \t \t \t %s\n", report.Record.Row.PolicyEvaluated.Spf))
+	sb.WriteString(fmt.Sprintf("COUNT \t \t \t %d\n", report.Record.Row.Count))
+	sb.WriteString(fmt.Sprintf("SOURCE IP \t \t %s\n", report.Record.Row.SourceIp))
+
+	return sb.String()
 }
