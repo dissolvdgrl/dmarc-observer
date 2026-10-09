@@ -82,10 +82,10 @@ var separator string = "--------------------------------------------------------
 func ParseReport(r io.Reader) (*Feedback, error) {
 	var report Feedback
 	decoder := xml.NewDecoder(r)
-	error := decoder.Decode(&report)
+	err := decoder.Decode(&report)
 
-	if error != nil {
-		return nil, error
+	if err != nil {
+		return nil, err
 	}
 
 	return &report, nil
