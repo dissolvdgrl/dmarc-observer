@@ -13,4 +13,4 @@ It shows who is sending emails on your behalf, whether they pass security checks
 Out of curiosity, and I wanted to build something with Go to keep my skills sharp, and maybe I think DMARC reports are kinda interesting for some reason. Fuck LLMs, btw.
 
 
-![CLI interface]([image-url-or-path](https://chilldsgn.com/assets/screenshot-from-2026-10-09-16-04-53.png))
+![CLI interface](https://chilldsgn.com/assets/screenshot-from-2026-10-09-16-04-53.png)
