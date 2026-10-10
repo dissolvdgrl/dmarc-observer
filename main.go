@@ -7,6 +7,7 @@ import (
 	"log"
 	"path/filepath"
 	"strings"
+	"strconv"
 
 	"dmarc-observer/parser"
 	"dmarc-observer/extract"
@@ -54,4 +55,26 @@ func main() {
 	
 
 	fmt.Println(parser.PrintReportSummary(reports))
+
+	for {
+		fmt.Println("Choose a report or q to quit:")
+		input, _ := reader.ReadString('\n')
+		input = strings.TrimSpace(input)
+
+		if input == "q" {
+			break
+		}
+
+		n, err := strconv.Atoi(input)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		report := reports[n]
+
+		fmt.Println(parser.PrintFullReport(&report))
+		fmt.Println("Press Enter to continue")
+		reader.ReadString('\n')
+		fmt.Println(parser.PrintReportSummary(reports))
+	}
 }
