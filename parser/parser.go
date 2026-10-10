@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"strings"
+	"time"
 )
 
 type DateRange struct {
@@ -124,6 +125,7 @@ func PrintFullReport(report *Feedback) (string) {
 	sb.WriteString(fmt.Sprintf("SPF \t \t \t %s\n", report.Record.Row.PolicyEvaluated.Spf))
 	sb.WriteString(fmt.Sprintf("COUNT \t \t \t %d\n", report.Record.Row.Count))
 	sb.WriteString(fmt.Sprintf("SOURCE IP \t \t %s\n", report.Record.Row.SourceIp))
+	sb.WriteString(fmt.Sprintf("DATE \t \t %s \n", time.Unix(report.ReportMetaData.DateRange.Begin, 0)))
 
 	return sb.String()
 }
